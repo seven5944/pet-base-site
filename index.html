@@ -110,6 +110,18 @@
         .site-footer a{color:#bfbfbf;text-decoration:none}.site-footer a:hover{color:var(--secondary)}
         @media(prefers-color-scheme:dark){:root{--surface-dark:#1a1a2e;--surface-accent:#1e2a4a}}
         @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.loader-ball,.hero::before,.hero-badge,.hero-title,.hero-title .highlight,.hero-subtitle,.hero-buttons,.float-ball,.screenshots-section::before,.features-section::before,.screenshots-section::after,.features-section::after,.feature-icon{animation:none!important}.screenshot-card,.feature-card{transition:none!important}}
+    
+/* 截图灯箱 */
+.lightbox{position:fixed;inset:0;z-index:9999;background:rgba(8,4,18,.94);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox .lb-img{max-width:94vw;max-height:86vh;object-fit:contain;border-radius:12px;box-shadow:0 20px 80px rgba(0,0,0,.7)}
+.lightbox .lb-close{position:absolute;top:14px;right:16px;font-size:2rem;color:#fff;background:rgba(255,255,255,.14);border:none;width:48px;height:48px;border-radius:50%;cursor:pointer;line-height:1}
+.lightbox .lb-prev,.lightbox .lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:1.8rem;color:#fff;background:rgba(255,255,255,.14);border:none;width:52px;height:52px;border-radius:50%;cursor:pointer;line-height:1}
+.lightbox .lb-prev{left:10px}.lightbox .lb-next{right:10px}
+.lightbox .lb-cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#fff;font-size:.9rem;opacity:.85}
+.screenshot-card::after{content:'点击放大';position:absolute;top:10px;right:10px;background:rgba(0,0,0,.55);color:#fff;font-size:.72rem;padding:4px 10px;border-radius:20px;opacity:0;transition:opacity .2s;pointer-events:none}
+.screenshot-card:hover::after{opacity:1}
+
     </style>
 </head>
 <body>
@@ -189,5 +201,33 @@
             document.querySelectorAll('.feature-card,.screenshot-card').forEach(el=>observer.observe(el));
         }
     </script>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+<button class="lb-close" id="lbClose" aria-label="关闭">&times;</button>
+<button class="lb-prev" id="lbPrev" aria-label="上一张">&#8249;</button>
+<img class="lb-img" id="lbImg" alt="">
+<button class="lb-next" id="lbNext" aria-label="下一张">&#8250;</button>
+<div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+(function(){
+var cards=Array.prototype.slice.call(document.querySelectorAll('.screenshot-card'));
+var items=cards.map(function(c){var im=c.querySelector('img');return{thumb:im.src,full:im.src.replace('/assets/','/assets/full/'),alt:im.alt||''};});
+var lb=document.getElementById('lightbox'),img=document.getElementById('lbImg'),cap=document.getElementById('lbCap'),idx=0,req=0;
+function show(i){idx=(i+items.length)%items.length;var it=items[idx];var my=++req;img.src=it.thumb;cap.textContent=it.alt+' ('+(idx+1)+'/'+items.length+')';var f=new Image();f.onload=function(){if(my===req)img.src=it.full;};f.src=it.full;}
+function openLb(i){show(i);lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+function closeLb(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+cards.forEach(function(c,i){c.addEventListener('click',function(){openLb(i);});});
+document.getElementById('lbClose').addEventListener('click',closeLb);
+document.getElementById('lbPrev').addEventListener('click',function(e){e.stopPropagation();show(idx-1);});
+document.getElementById('lbNext').addEventListener('click',function(e){e.stopPropagation();show(idx+1);});
+lb.addEventListener('click',function(e){if(e.target===lb)closeLb();});
+document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')show(idx-1);if(e.key==='ArrowRight')show(idx+1);});
+var sx=0;lb.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+lb.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)show(idx+(dx<0?1:-1));},{passive:true});
+})();
+</script>
+
 </body>
 </html>
