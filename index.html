@@ -122,6 +122,36 @@
 .screenshot-card::after{content:'点击放大';position:absolute;top:10px;right:10px;background:rgba(0,0,0,.55);color:#fff;font-size:.72rem;padding:4px 10px;border-radius:20px;opacity:0;transition:opacity .2s;pointer-events:none}
 .screenshot-card:hover::after{opacity:1}
 
+    
+/* 开服计划 */
+.servers-section{background:linear-gradient(135deg,#1a1a2e 0%,#2a1a3e 55%,#1a1a2e 100%)}
+.cd-note{text-align:center;color:rgba(255,255,255,.8);font-size:.95rem;margin:26px 0 14px}
+.countdown{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.cd-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,203,5,.3);border-radius:14px;min-width:78px;padding:12px 10px;text-align:center}
+.cd-num{font-size:1.9rem;font-weight:900;color:var(--secondary);font-variant-numeric:tabular-nums;line-height:1.1}
+.cd-lab{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:4px}
+.cd-open{font-size:1.4rem;font-weight:900;color:var(--secondary);text-align:center;padding:10px 0 26px}
+.server-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1020px;margin:0 auto}
+.server-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:26px 20px;text-align:center;position:relative;transition:var(--transition)}
+.server-card:hover{transform:translateY(-4px);border-color:rgba(255,203,5,.45);box-shadow:var(--shadow-hover)}
+.server-card.hot{border-color:var(--secondary);background:linear-gradient(160deg,rgba(255,203,5,.13),rgba(255,255,255,.05))}
+.server-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;font-size:.72rem;font-weight:700;padding:4px 16px;border-radius:20px;white-space:nowrap}
+.server-date{font-size:1.15rem;font-weight:800;color:var(--secondary)}
+.server-time{font-size:1.9rem;font-weight:900;color:#fff;margin:8px 0}
+.server-desc{font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.7}
+/* 礼包码 */
+.gift-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;max-width:1080px;margin:6px auto 0}
+.gift-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 18px;position:relative;transition:var(--transition);cursor:pointer}
+.gift-card:hover{transform:translateY(-3px);border-color:rgba(255,203,5,.5);box-shadow:var(--shadow-hover)}
+.gift-card.hot{border-color:rgba(255,203,5,.55);background:linear-gradient(160deg,rgba(255,203,5,.1),rgba(255,255,255,.04))}
+.gift-badge{position:absolute;top:-11px;right:14px;background:var(--primary);color:#fff;font-size:.7rem;font-weight:700;padding:4px 14px;border-radius:20px}
+.gift-code{font-family:Consolas,Menlo,monospace;font-size:1.4rem;font-weight:900;color:var(--secondary);letter-spacing:2px}
+.gift-rewards{font-size:.86rem;color:rgba(255,255,255,.82);line-height:1.75;margin:10px 0 14px;min-height:3.4em}
+.gift-copy{display:inline-block;font-size:.8rem;color:#1a1a2e;background:var(--secondary);font-weight:700;padding:7px 20px;border-radius:20px}
+.gift-tip{text-align:center;color:rgba(255,255,255,.55);font-size:.82rem;margin-top:22px}
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:rgba(18,18,28,.96);color:#fff;padding:12px 28px;border-radius:30px;font-size:.9rem;opacity:0;pointer-events:none;transition:all .3s;z-index:10001;border:1px solid rgba(255,203,5,.45);white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
     </style>
 </head>
 <body>
@@ -129,7 +159,7 @@
     <nav class="navbar" id="navbar">
         <a href="#" class="logo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23ff1c1c'/%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23ffcb05' stroke-width='6'/%3E%3Cpath d='M50 5 A45 45 0 0 1 50 95' fill='%23fff'/%3E%3Ccircle cx='50' cy='50' r='14' fill='%23fff' stroke='%231a1a2e' stroke-width='4'/%3E%3C/svg%3E" alt="logo">宝可梦·宠物基地</a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#screenshots">游戏截图</a></li>
+            <li><a href="#screenshots">游戏截图</a></li>             <li><a href="#servers">开服计划</a></li>             <li><a href="#gifts">礼包码</a></li>
             <li><a href="#features">游戏特色</a></li>
             <li><a href="#contact">联系客服</a></li>
         </ul>
@@ -147,7 +177,23 @@
             </div>
         </div>
     </section>
-    <section class="section screenshots-section" id="screenshots">
+    
+<section class="section servers-section" id="servers">
+<div class="section-header"><h2 class="section-title">开服<span class="accent">计划</span></h2><p class="section-subtitle">首服9月29日10:00准时开启，不见不散</p></div>
+<p class="cd-note">距离首服「1服」开启还有</p>
+<div class="countdown" id="cd-box">
+<div class="cd-box"><div class="cd-num" id="cd-d">0</div><div class="cd-lab">天</div></div>
+<div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-lab">时</div></div>
+<div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-lab">分</div></div>
+<div class="cd-box"><div class="cd-num" id="cd-s">00</div><div class="cd-lab">秒</div></div>
+</div>
+<div class="server-cards">
+<div class="server-card hot"><span class="server-tag">首发</span><div class="server-date">9月29日</div><div class="server-time">10:00</div><div class="server-desc">首服「1服」震撼开启<br>抢先体验，先到先得</div></div>
+<div class="server-card"><div class="server-date">9月29日-30日</div><div class="server-time">动态开服</div><div class="server-desc">单服注册满300人<br>立即开启新服务器</div></div>
+<div class="server-card"><div class="server-date">10月1日起</div><div class="server-time">每天10:00</div><div class="server-desc">准时开启新服<br>天天都有新起点</div></div>
+</div>
+</section>
+<section class="section screenshots-section" id="screenshots">
         <div class="section-header"><h2 class="section-title">游戏<span class="accent">截图</span></h2><p class="section-subtitle">感受宝可梦·宠物基地的精彩世界</p></div>
         <div class="screenshots-grid">
             <div class="screenshot-card"><img src="https://cdn.jsdelivr.net/gh/seven5944/pet-base-site@main/assets/hero.jpg" alt="游戏截图1" loading="lazy"><span class="label">广阔的大陆地图等你探索</span></div>
@@ -159,7 +205,23 @@
             <div class="screenshot-card"><img src="https://cdn.jsdelivr.net/gh/seven5944/pet-base-site@main/assets/shot6.jpg" alt="游戏截图7" loading="lazy"><span class="label">更多精彩内容等你探索</span></div>
         </div>
     </section>
-    <section class="section features-section" id="features">
+    
+<section class="section features-section" id="gifts">
+<div class="section-header"><h2 class="section-title">礼包<span class="accent">兑换码</span></h2><p class="section-subtitle">通用兑换码，点击卡片一键复制，到游戏内兑换领取</p></div>
+<div class="gift-grid">
+<div class="gift-card" onclick="copyGift('BKM111',event)"><div class="gift-code">BKM111</div><div class="gift-rewards">橙4星装备自选 ×4<br>超级球 ×10</div><span class="gift-copy">复制兑换码</span></div>
+<div class="gift-card" onclick="copyGift('BKM222',event)"><div class="gift-code">BKM222</div><div class="gift-rewards">突破礼包Ⅳ ×2<br>12小时资源包 ×2<br>银币礼包Ⅳ ×2</div><span class="gift-copy">复制兑换码</span></div>
+<div class="gift-card" onclick="copyGift('BKM333',event)"><div class="gift-code">BKM333</div><div class="gift-rewards">超级球 ×50<br>钻石 ×500</div><span class="gift-copy">复制兑换码</span></div>
+<div class="gift-card" onclick="copyGift('BKM444',event)"><div class="gift-code">BKM444</div><div class="gift-rewards">垂钓鱼竿 ×10<br>聚能晶块 ×10</div><span class="gift-copy">复制兑换码</span></div>
+<div class="gift-card" onclick="copyGift('BKM555',event)"><div class="gift-code">BKM555</div><div class="gift-rewards">银币礼包Ⅳ ×2<br>钻石 ×500<br>竞技券 ×5</div><span class="gift-copy">复制兑换码</span></div>
+<div class="gift-card hot" onclick="copyGift('BKM666',event)"><span class="gift-badge">推荐</span><div class="gift-code">BKM666</div><div class="gift-rewards">超级球 ×50<br>5星精灵自选 ×1</div><span class="gift-copy">复制兑换码</span></div>
+<div class="gift-card" onclick="copyGift('BKM777',event)"><div class="gift-code">BKM777</div><div class="gift-rewards">科技道具自选 ×1<br>金色能量球 ×120</div><span class="gift-copy">复制兑换码</span></div>
+<div class="gift-card" onclick="copyGift('BKM888',event)"><div class="gift-code">BKM888</div><div class="gift-rewards">突破礼包Ⅲ ×2<br>8小时资源包 ×2<br>银币礼包Ⅲ ×2</div><span class="gift-copy">复制兑换码</span></div>
+<div class="gift-card hot" onclick="copyGift('ZHUBOFULI',event)"><span class="gift-badge">推荐</span><div class="gift-code">ZHUBOFULI</div><div class="gift-rewards">代金券 ×328<br>超级球 ×50<br>核心精灵自选 ×1</div><span class="gift-copy">复制兑换码</span></div>
+</div>
+<p class="gift-tip">* 兑换码数量有限，先到先得，同一账号每个兑换码限用一次</p>
+</section>
+<section class="section features-section" id="features">
         <div class="section-header"><h2 class="section-title">游戏<span class="accent">特色</span></h2><p class="section-subtitle">探索独一无二的宝可梦·宠物基地世界，体验前所未有的冒险乐趣</p></div>
         <div class="features-grid">
             <div class="feature-card"><span class="feature-icon"></span><h3>丰富的宠物收集</h3><p>超过200种风格各异的宠物等待你的发现。从可爱的草系精灵到强大的龙系巨兽，每种宠物都有独特的技能和进化路线。</p></div>
@@ -198,7 +260,7 @@
         if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
             const observerOptions={threshold:0.1,rootMargin:'0px 0px -50px 0px'};
             const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');observer.unobserve(entry.target)}})},observerOptions);
-            document.querySelectorAll('.feature-card,.screenshot-card').forEach(el=>observer.observe(el));
+            document.querySelectorAll('.feature-card,.screenshot-card,.server-card,.gift-card').forEach(el=>observer.observe(el));
         }
     </script>
 
@@ -227,6 +289,32 @@ document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'
 var sx=0;lb.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
 lb.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)show(idx+(dx<0?1:-1));},{passive:true});
 })();
+</script>
+
+
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+var target=new Date('2026-09-29T10:00:00+08:00').getTime();
+var box=document.getElementById('cd-box');
+function pad(n){return String(n).padStart(2,'0');}
+function tick(){
+var diff=target-Date.now();
+if(diff<=0){box.innerHTML='<div class="cd-open">首服「1服」火爆开启中，快来加入！</div>';var note=document.querySelector('.cd-note');if(note)note.style.display='none';return;}
+document.getElementById('cd-d').textContent=Math.floor(diff/864e5);
+document.getElementById('cd-h').textContent=pad(Math.floor(diff%864e5/36e5));
+document.getElementById('cd-m').textContent=pad(Math.floor(diff%36e5/6e4));
+document.getElementById('cd-s').textContent=pad(Math.floor(diff%6e4/1e3));
+setTimeout(tick,1000);
+}
+if(box)tick();
+})();
+function copyGift(code,ev){
+if(ev)ev.stopPropagation();
+function done(){var t=document.getElementById('toast');t.textContent='兑换码 '+code+' 已复制，去游戏内兑换吧';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1800);}
+function fb(){var ta=document.createElement('textarea');ta.value=code;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);done();}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(done).catch(fb);}else{fb();}
+}
 </script>
 
 </body>
